@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Asian American Literature Explorer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f7fa; color: #222; margin: 0; padding: 2rem;}
+    .container { max-width: 720px; margin: auto; background: #fff; border-radius: 20px; box-shadow: 0 2px 20px rgba(0,0,0,.08); padding: 2.2rem 2rem 1rem 2rem; }
+    h1 { font-size: 2.2rem; margin-bottom: 0.4rem; }
+    .intro { font-size: 1.1rem; margin-bottom: 1.7rem; }
+    .theme-section { margin-bottom: 2.3rem; border-top: 1px solid #d1d5db; padding-top: 1.1rem; }
+    .theme-header { cursor: pointer; font-size: 1.25rem; margin-bottom: .6rem; font-weight: 600; color: #2563eb; display: flex; align-items: center;}
+    .theme-header .arrow { font-size: 1.3rem; margin-right: 0.5rem; transition: transform .25s;}
+    .theme-header.open .arrow { transform: rotate(90deg); }
+    .quote-card { background: #f3f4f6; border-radius: 1rem; margin-bottom: 1.1rem; padding: 1.1rem 1rem 1rem 1.3rem;}
+    .meta { font-size: 1.04rem; color: #6366f1; margin-bottom: 0.2rem;}
+    .work { font-style: italic; color: #374151;}
+    blockquote { font-size: 1.17rem; margin: 0.3rem 0 0.8rem 0; padding-left: 0.7rem; border-left: 3px solid #93c5fd; }
+    .sentiment { font-size: 1rem; font-weight: 500; }
+    .sentiment.positive { color: #059669;}
+    .sentiment.negative { color: #dc2626;}
+    .sentiment.mixed { color: #f59e42;}
+    .controls { margin-top: .5rem; }
+    .btn-next { padding: 0.35rem 1.2rem; background: #2563eb; color: #fff; border: none; border-radius: 1.1rem; cursor: pointer; font-size: 1rem; margin-right: 0.8rem;}
+    .btn-next:hover { background: #1d4ed8; }
+    .learnmore { font-size: 0.99rem; color: #818cf8; text-decoration: underline; cursor: pointer;}
+    .context-popup { display: none; position: fixed; z-index: 999; top: 0; left: 0; right: 0; bottom: 0; background:rgba(0,0,0,0.27);}
+    .context-card { background: #fff; max-width: 440px; margin: 8vh auto; border-radius: 1.2rem; box-shadow: 0 2px 14px rgba(0,0,0,.13); padding: 1.2rem 1.7rem; }
+    .context-title { font-weight: bold; margin-bottom: .2rem;}
+    .context-close { float: right; color: #aaa; cursor: pointer; font-size: 1.35rem; }
+    @media (max-width: 700px) {
+      .container { padding: 1.1rem 0.4rem; }
+      h1 { font-size: 1.4rem;}
+      .context-card { padding: 0.7rem 0.6rem;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Asian American Literature Explorer</h1>
+    <div class="intro">Browse themes below. See quotes from Asian American literature and history, annotated with sentiment, context, and further reading.</div>
+    <div id="themes"></div>
+  </div>
+  <div class="context-popup" id="contextPopup">
+    <div class="context-card">
+      <span class="context-close" onclick="closeContext()">&times;</span>
+      <div class="context-title" id="contextTitle"></div>
+      <div id="contextText"></div>
+      <div style="margin-top: 0.8rem;">
+        <a href="#" id="contextLink" target="_blank" style="color:#2563eb;text-decoration:underline;"></a>
+      </div>
+    </div>
+  </div>
+  <script>
+    // DATA: Expand as needed!
+    const data = [
+      {
+        theme: "Identity & Belonging",
+        quotes: [
+          {
+            author: "Maxine Hong Kingston",
+            work: "The Woman Warrior (1976)",
+            excerpt: "I learned to make my mind large, as the universe is large, so that there is room for paradoxes.",
+            sentiment: "positive",
+            sentiment_text: "Thoughtful, Empowering 🟢",
+            context: "Kingston's memoir blends myth and reality to capture the tension between Chinese heritage and American upbringing, reflecting the paradoxes faced by many immigrants.",
+            learnmore: "https://www.penguinrandomhouse.com/books/87793/the-woman-warrior-by-maxine-hong-kingston/"
+          },
+          {
+            author: "Cathy Park Hong",
+            work: "Minor Feelings (2020)",
+            excerpt: "To be Asian in America is to be a perpetual foreigner, sometimes invisible, sometimes hyper-visible.",
+            sentiment: "mixed",
+            sentiment_text: "Introspective, Candid 🟡",
+            context: "In this acclaimed essay collection, Hong unpacks how Asian Americans navigate between erasure and unwanted attention in U.S. society.",
+            learnmore: "https://www.penguinrandomhouse.com/books/567810/minor-feelings-by-cathy-park-hong/"
+          }
+        ]
+      },
+      {
+        theme: "Discrimination & Exclusion",
+        quotes: [
+          {
+            author: "John Okada",
+            work: "No-No Boy (1957)",
+            excerpt: "The Japanese in America were unwanted, and the unwanted, when they are too weak to resist, are always pushed out.",
+            sentiment: "negative",
+            sentiment_text: "Somber, Alienated 🔴",
+            context: "This landmark novel explores the trauma of internment and ostracism faced by Japanese Americans during and after WWII.",
+            learnmore: "https://uwapress.uw.edu/book/9780295994048/no-no-boy/"
+          },
+          {
+            author: "Angel Island Immigrants (Anonymous)",
+            work: "Poetry Carved in Angel Island Walls (c.1910s-1940s)",
+            excerpt: "Imprisoned in the wooden building day after day, my freedom withheld; How can I bear to talk about it?",
+            sentiment: "negative",
+            sentiment_text: "Longing, Grief 🔴",
+            context: "Thousands of Chinese immigrants detained at Angel Island wrote poems expressing sorrow and hope. These poems are now historical records of exclusion-era pain.",
+            learnmore: "https://www.nps.gov/places/angel-island-immigration-station.htm"
+          }
+        ]
+      },
+      {
+        theme: "Family & Generations",
+        quotes: [
+          {
+            author: "Amy Tan",
+            work: "The Joy Luck Club (1989)",
+            excerpt: "My mother believed you could be anything you wanted to be in America.",
+            sentiment: "positive",
+            sentiment_text: "Hopeful, Loving 🟢",
+            context: "Tan's novel interweaves the lives of Chinese American women and their mothers, exploring generational hopes, trauma, and dreams.",
+            learnmore: "https://www.penguinrandomhouse.com/books/176801/the-joy-luck-club-by-amy-tan/"
+          },
+          {
+            author: "Ocean Vuong",
+            work: "On Earth We're Briefly Gorgeous (2019)",
+            excerpt: "I am writing because they told me to never start a sentence with because. But I wasn't trying to make a sentence—I was trying to break free.",
+            sentiment: "mixed",
+            sentiment_text: "Tender, Defiant 🟡",
+            context: "Vuong's novel, in the form of a letter from a son to his mother, explores the legacy of war, migration, and queer identity.",
+            learnmore: "https://www.penguinrandomhouse.com/books/586017/on-earth-were-briefly-gorgeous-by-ocean-vuong/"
+          }
+        ]
+      },
+      {
+        theme: "Resilience & Agency",
+        quotes: [
+          {
+            author: "Viet Thanh Nguyen",
+            work: "The Sympathizer (2015)",
+            excerpt: "To live in the world is to be a man among men, and to live in America is to be a man among whites.",
+            sentiment: "mixed",
+            sentiment_text: "Critical, Reflective 🟡",
+            context: "Pulitzer-winning novel about a double agent after the Vietnam War, blending dark humor and critique of U.S. society's treatment of Asians.",
+            learnmore: "https://www.groveatlantic.com/book/the-sympathizer/"
+          },
+          {
+            author: "Jhumpa Lahiri",
+            work: "The Namesake (2003)",
+            excerpt: "Pet names are a persistent reminder that life is not always about making sense but about making do.",
+            sentiment: "positive",
+            sentiment_text: "Warm, Philosophical 🟢",
+            context: "This novel explores the Indian American immigrant journey, names, and identity through a Bengali family's experience.",
+            learnmore: "https://www.penguinrandomhouse.com/books/96736/the-namesake-by-jhumpa-lahiri/"
+          }
+        ]
+      },
+      {
+        theme: "Activism & Community",
+        quotes: [
+          {
+            author: "Grace Lee Boggs",
+            work: "Living for Change (1998)",
+            excerpt: "We are the leaders we have been waiting for.",
+            sentiment: "positive",
+            sentiment_text: "Empowering, Inspiring 🟢",
+            context: "Boggs, a legendary Chinese American activist, inspired generations to take charge of their own communities' destinies.",
+            learnmore: "https://www.dukeupress.edu/living-for-change"
+          },
+          {
+            author: "Carlos Bulosan",
+            work: "America Is in the Heart (1946)",
+            excerpt: "We are all that we are because of what we have been, and we shall be what we are now, together.",
+            sentiment: "positive",
+            sentiment_text: "Uniting, Hopeful 🟢",
+            context: "Bulosan’s semi-autobiographical novel details the Filipino laborer experience and the search for solidarity.",
+            learnmore: "https://www.penguinrandomhouse.com/books/317635/america-is-in-the-heart-by-carlos-bulosan/"
+          }
+        ]
+      }
+    ];
+
+    // Renders all theme sections (collapsible, default open)
+    const themesDiv = document.getElementById('themes');
+    data.forEach((themeData, idx) => {
+      const section = document.createElement('div');
+      section.className = 'theme-section';
+
+      const header = document.createElement('div');
+      header.className = 'theme-header open';
+      header.innerHTML = `<span class="arrow">&#9654;</span>${themeData.theme}`;
+      header.onclick = () => {
+        const isOpen = header.classList.contains('open');
+        header.classList.toggle('open', !isOpen);
+        quoteDiv.style.display = isOpen ? 'none' : '';
+      };
+
+      // Random quote index tracker
+      let quoteIdx = Math.floor(Math.random() * themeData.quotes.length);
+
+      // Quote display
+      const quoteDiv = document.createElement('div');
+      quoteDiv.className = 'quote-card';
+
+      function renderQuote() {
+        const q = themeData.quotes[quoteIdx];
+        quoteDiv.innerHTML = `
+          <div class="meta"><strong>${q.author}</strong>, <span class="work">${q.work}</span></div>
+          <blockquote>${q.excerpt}</blockquote>
+          <div class="sentiment ${q.sentiment}">Sentiment: ${q.sentiment_text}</div>
+          <div class="controls">
+            <button class="btn-next">Next Quote</button>
+            <span class="learnmore" onclick="showContext('${escapeQuotes(q.author)}','${escapeQuotes(q.work)}','${escapeQuotes(q.context)}','${q.learnmore}')">Context & Learn More</span>
+          </div>
+        `;
+        // next quote button
+        quoteDiv.querySelector('.btn-next').onclick = () => {
+          let newIdx;
+          do { newIdx = Math.floor(Math.random() * themeData.quotes.length); } while (newIdx === quoteIdx && themeData.quotes.length > 1);
+          quoteIdx = newIdx;
+          renderQuote();
+        };
+      }
+      renderQuote();
+
+      section.appendChild(header);
+      section.appendChild(quoteDiv);
+      themesDiv.appendChild(section);
+    });
+
+    // Escape quotes for attribute passing
+    function escapeQuotes(str) {
+      return (str || '').replace(/'/g, "&#39;").replace(/"/g, "&quot;");
+    }
+
+    // Context popup logic
+    function showContext(author, work, context, url) {
+      document.getElementById('contextTitle').textContent = `${author}, ${work}`;
+      document.getElementById('contextText').textContent = context;
+      const link = document.getElementById('contextLink');
+      if (url) {
+        link.href = url;
+        link.textContent = "Read more / source";
+        link.style.display = '';
+      } else {
+        link.style.display = 'none';
+      }
+      document.getElementById('contextPopup').style.display = 'block';
+    }
+    function closeContext() {
+      document.getElementById('contextPopup').style.display = 'none';
+    }
+    window.showContext = showContext;
+    window.closeContext = closeContext;
+    // Close popup on click outside
+    document.getElementById('contextPopup').addEventListener('click', e => {
+      if (e.target === document.getElementById('contextPopup')) closeContext();
+    });
+  </script>
+</body>
+</html>
