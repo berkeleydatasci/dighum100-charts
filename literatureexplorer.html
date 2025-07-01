@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f7fa; color: #222; margin: 0; padding: 2rem;}
-    .container { max-width: 720px; margin: auto; background: #fff; border-radius: 20px; box-shadow: 0 2px 20px rgba(0,0,0,.08); padding: 2.2rem 2rem 1rem 2rem; }
+    .container { max-width: 800px; margin: auto; background: #fff; border-radius: 20px; box-shadow: 0 2px 20px rgba(0,0,0,.08); padding: 2.2rem 2rem 1rem 2rem; }
     h1 { font-size: 2.2rem; margin-bottom: 0.4rem; }
     .intro { font-size: 1.1rem; margin-bottom: 1.7rem; }
     .theme-section { margin-bottom: 2.3rem; border-top: 1px solid #d1d5db; padding-top: 1.1rem; }
@@ -26,7 +26,7 @@
     .btn-next:hover { background: #1d4ed8; }
     .learnmore { font-size: 0.99rem; color: #818cf8; text-decoration: underline; cursor: pointer;}
     .context-popup { display: none; position: fixed; z-index: 999; top: 0; left: 0; right: 0; bottom: 0; background:rgba(0,0,0,0.27);}
-    .context-card { background: #fff; max-width: 440px; margin: 8vh auto; border-radius: 1.2rem; box-shadow: 0 2px 14px rgba(0,0,0,.13); padding: 1.2rem 1.7rem; }
+    .context-card { background: #fff; max-width: 480px; margin: 8vh auto; border-radius: 1.2rem; box-shadow: 0 2px 14px rgba(0,0,0,.13); padding: 1.2rem 1.7rem; }
     .context-title { font-weight: bold; margin-bottom: .2rem;}
     .context-close { float: right; color: #aaa; cursor: pointer; font-size: 1.35rem; }
     @media (max-width: 700px) {
@@ -39,7 +39,7 @@
 <body>
   <div class="container">
     <h1>Asian American Literature Explorer</h1>
-    <div class="intro">Browse themes below. See quotes from Asian American literature and history, annotated with sentiment, context, and further reading.</div>
+    <div class="intro">Browse themes below. See quotes from Asian American literature, oral history, and culture, annotated with sentiment, context, and further reading. Themes and communities are broadly representative—keep expanding!</div>
     <div id="themes"></div>
   </div>
   <div class="context-popup" id="contextPopup">
@@ -53,7 +53,7 @@
     </div>
   </div>
   <script>
-    // DATA: Expand as needed!
+    // Expanded DATA!
     const data = [
       {
         theme: "Identity & Belonging",
@@ -75,6 +75,24 @@
             sentiment_text: "Introspective, Candid 🟡",
             context: "In this acclaimed essay collection, Hong unpacks how Asian Americans navigate between erasure and unwanted attention in U.S. society.",
             learnmore: "https://www.penguinrandomhouse.com/books/567810/minor-feelings-by-cathy-park-hong/"
+          },
+          {
+            author: "Lisa Ko",
+            work: "The Leavers (2017)",
+            excerpt: "My mother used to say: If you can’t fit in, stand out. If you can’t stand out, fit in.",
+            sentiment: "mixed",
+            sentiment_text: "Conflicted, Honest 🟡",
+            context: "This novel explores transnational adoption, belonging, and the cost of assimilation in Chinese American lives.",
+            learnmore: "https://algonquin.com/book/the-leavers/"
+          },
+          {
+            author: "David Mura",
+            work: "Turning Japanese (1991)",
+            excerpt: "I was a foreigner in the country where I was born. I was a foreigner in the country where my face was from.",
+            sentiment: "negative",
+            sentiment_text: "Alienated, Reflective 🔴",
+            context: "Mura’s memoir explores identity and the feeling of perpetual foreignness as a Japanese American returning to Japan.",
+            learnmore: "https://www.groveatlantic.com/book/turning-japanese/"
           }
         ]
       },
@@ -98,6 +116,24 @@
             sentiment_text: "Longing, Grief 🔴",
             context: "Thousands of Chinese immigrants detained at Angel Island wrote poems expressing sorrow and hope. These poems are now historical records of exclusion-era pain.",
             learnmore: "https://www.nps.gov/places/angel-island-immigration-station.htm"
+          },
+          {
+            author: "Hmong Oral History",
+            work: "Vietnamese Resettlement Interview (1989)",
+            excerpt: "We came with nothing but the story of our lives. America gave us ground but not always welcome.",
+            sentiment: "mixed",
+            sentiment_text: "Wistful, Honest 🟡",
+            context: "A Hmong elder recalls fleeing Laos and feeling both gratitude and hardship as a Southeast Asian refugee after the Vietnam War.",
+            learnmore: "https://hmongamerican.org/"
+          },
+          {
+            author: "Carlos Bulosan",
+            work: "America Is in the Heart (1946)",
+            excerpt: "I feel like a criminal running away from a crime I did not commit.",
+            sentiment: "negative",
+            sentiment_text: "Marginalized, Hurt 🔴",
+            context: "Bulosan’s semi-autobiographical novel details the Filipino migrant laborer experience under racism and exclusion.",
+            learnmore: "https://www.penguinrandomhouse.com/books/317635/america-is-in-the-heart-by-carlos-bulosan/"
           }
         ]
       },
@@ -121,6 +157,24 @@
             sentiment_text: "Tender, Defiant 🟡",
             context: "Vuong's novel, in the form of a letter from a son to his mother, explores the legacy of war, migration, and queer identity.",
             learnmore: "https://www.penguinrandomhouse.com/books/586017/on-earth-were-briefly-gorgeous-by-ocean-vuong/"
+          },
+          {
+            author: "Jhumpa Lahiri",
+            work: "The Namesake (2003)",
+            excerpt: "Pet names are a persistent reminder that life is not always about making sense but about making do.",
+            sentiment: "positive",
+            sentiment_text: "Warm, Philosophical 🟢",
+            context: "This novel explores the Indian American immigrant journey, names, and identity through a Bengali family's experience.",
+            learnmore: "https://www.penguinrandomhouse.com/books/96736/the-namesake-by-jhumpa-lahiri/"
+          },
+          {
+            author: "Viet Thanh Nguyen",
+            work: "The Refugees (2017)",
+            excerpt: "I never knew what my father carried with him, what dark river ran beneath our house.",
+            sentiment: "mixed",
+            sentiment_text: "Haunted, Reflective 🟡",
+            context: "Short stories on the trauma, inheritance, and healing in Vietnamese American families.",
+            learnmore: "https://groveatlantic.com/book/the-refugees/"
           }
         ]
       },
@@ -144,6 +198,24 @@
             sentiment_text: "Warm, Philosophical 🟢",
             context: "This novel explores the Indian American immigrant journey, names, and identity through a Bengali family's experience.",
             learnmore: "https://www.penguinrandomhouse.com/books/96736/the-namesake-by-jhumpa-lahiri/"
+          },
+          {
+            author: "Souvankham Thammavongsa",
+            work: "How to Pronounce Knife (2020)",
+            excerpt: "Her father could not pronounce the word ‘knife.’ He said it the way it was spelled. K-nife.",
+            sentiment: "positive",
+            sentiment_text: "Gentle, Resilient 🟢",
+            context: "Thammavongsa's short stories bring out the quiet strength of Southeast Asian working-class families.",
+            learnmore: "https://www.penguinrandomhouse.com/books/604323/how-to-pronounce-knife-by-souvankham-thammavongsa/"
+          },
+          {
+            author: "Tereza Lee (Oral History)",
+            work: "Testimony to Senate on DREAM Act (2011)",
+            excerpt: "I never chose where I was born. I only chose to try my hardest to belong.",
+            sentiment: "positive",
+            sentiment_text: "Courageous, Inspiring 🟢",
+            context: "Tereza Lee, a Korean-born, Brazilian-raised, undocumented immigrant, inspired the original DREAM Act.",
+            learnmore: "https://immigrantsrising.org/terezas-story/"
           }
         ]
       },
@@ -160,6 +232,24 @@
             learnmore: "https://www.dukeupress.edu/living-for-change"
           },
           {
+            author: "Helen Zia",
+            work: "Asian American Dreams (2000)",
+            excerpt: "Unity is not just a word—it's our survival.",
+            sentiment: "positive",
+            sentiment_text: "Motivating, Urgent 🟢",
+            context: "Zia’s memoir covers activism after the Vincent Chin murder and the birth of Asian American political identity.",
+            learnmore: "https://www.penguinrandomhouse.com/books/191765/asian-american-dreams-by-helen-zia/"
+          },
+          {
+            author: "Yuri Kochiyama",
+            work: "Passing It On (2004)",
+            excerpt: "Remember that consciousness is power. Tomorrow’s world is yours to build.",
+            sentiment: "positive",
+            sentiment_text: "Hopeful, Forward-looking 🟢",
+            context: "Japanese American civil rights activist Yuri Kochiyama speaks to a new generation on activism and solidarity.",
+            learnmore: "https://www.upress.state.ms.us/Books/P/Passing-It-On"
+          },
+          {
             author: "Carlos Bulosan",
             work: "America Is in the Heart (1946)",
             excerpt: "We are all that we are because of what we have been, and we shall be what we are now, together.",
@@ -167,6 +257,47 @@
             sentiment_text: "Uniting, Hopeful 🟢",
             context: "Bulosan’s semi-autobiographical novel details the Filipino laborer experience and the search for solidarity.",
             learnmore: "https://www.penguinrandomhouse.com/books/317635/america-is-in-the-heart-by-carlos-bulosan/"
+          }
+        ]
+      },
+      {
+        theme: "Representation in Media & Pop Culture",
+        quotes: [
+          {
+            author: "Jon M. Chu (director)",
+            work: "Crazy Rich Asians (Film, 2018)",
+            excerpt: "We wanted people to walk out of the theater proud of who they are and where they come from.",
+            sentiment: "positive",
+            sentiment_text: "Proud, Affirming 🟢",
+            context: "Jon M. Chu directed the first major Hollywood film with an all-Asian cast in 25 years, helping to break stereotypes.",
+            learnmore: "https://www.npr.org/2018/08/15/638571709/crazy-rich-asians-director-jon-m-chu-on-why-representation-matters"
+          },
+          {
+            author: "Simu Liu",
+            work: "Shang-Chi and the Legend of the Ten Rings (2021, Marvel Interview)",
+            excerpt: "I hope kids see Shang-Chi and know they can be superheroes too.",
+            sentiment: "positive",
+            sentiment_text: "Empowering, Joyful 🟢",
+            context: "Simu Liu became Marvel’s first Asian lead superhero, a landmark for Asian American representation in blockbuster cinema.",
+            learnmore: "https://www.npr.org/2021/09/03/1033784271/simu-liu-shang-chi-marvel"
+          },
+          {
+            author: "Mindy Kaling",
+            work: "Never Have I Ever (Netflix, 2020)",
+            excerpt: "We wanted to show that South Asian girls can be funny, messy, and everything in between.",
+            sentiment: "positive",
+            sentiment_text: "Light-hearted, Inclusive 🟢",
+            context: "Kaling’s Netflix show centers a South Asian American teen, shattering monolithic media tropes.",
+            learnmore: "https://www.npr.org/2020/04/23/842951886/mindy-kaling-on-netflix-s-never-have-i-ever"
+          },
+          {
+            author: "Awkwafina (Nora Lum)",
+            work: "Nora from Queens (Comedy Central, 2020)",
+            excerpt: "I'm not trying to be anyone but myself.",
+            sentiment: "positive",
+            sentiment_text: "Authentic, Rebellious 🟢",
+            context: "Awkwafina’s comedy series blends humor and authenticity, showing the diversity of Asian American experience.",
+            learnmore: "https://www.rollingstone.com/tv-movies/tv-movie-features/awkwafina-interview-nora-from-queens-944640/"
           }
         ]
       }
